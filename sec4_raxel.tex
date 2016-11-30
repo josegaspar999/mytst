@@ -1,0 +1,81 @@
+
+\section{Lens Effect and Raxel Densities}
+
+------
+
+Grossberg and Nayar\cite{Raxels} defined the concept of raxels, raxels is a mathematical abstraction of the position of the light sensor. Instead of the real position of the sensor, raxels are assumed to be along the direction of the chief ray associated to the sensor, they can be catheterized as a $3D$ position and a direction vector, as it can be seen in Fig.\ref{fig:setup}(d).
+ 
+-----
+
+A raxels as stated before, is catheterized by a $3D$ position, $p$, and a vector of orientation, $q$. However since we are working with central cameras, one considers that all light rays converge to the same point, thus, making $p_i=p_j$ for any pair of raxels. Therefore, one can ignore the position of the raxels, since the only useful information is contained in the direction vector $q$. As a direction vector, $q$, one can assume that all the vectors have the same norm, this assumption removes one degree of freedom, which allow us to represent $q$ with only two angles, $(\Omega,\mu)$, as it can be seen in figure~\ref{fig:def_raxels}.
+%
+\begin{figure}
+\centering
+\begin{tabular}{c}
+\includegraphics[width=6.0cm]{raxel_v1.eps}
+\end{tabular}
+\caption{Characterizing raxels.}
+\label{fig:def_raxels}
+\end{figure}
+%
+Let $T$ be the transformation produced by a lens type, the transformation from raxels to pixels can be represented as:
+\begin{equation}
+\left [ \begin{array}{c} u \\ v \end{array} \right ] = h^{-1} (\Omega)
+\left [ \begin{array}{c} \cos (\mu) \\ \sin(\mu) \end{array} \right ]
+\end{equation}
+
+The marginal density would be the solution if we had no lens transformation, however the transformation created by the lens will change the marginal density. Once again we can use Eq.~\ref{eq:wiki_copy} to change the density function, however in this case we only interested in the marginal density. For the cases we show so, far 3 lens and 2 possible distributions, we have 6 solution, the results can be seen in the next table:
+
+\begin{table*}[h] % place table ‘‘here’’ or at bottom of page
+\centering
+\begin{tabular}{|p{1in}|p{1.5in}|p{2.5in}|}
+\hline
+  & In case of uniform distribution in R we have:  &  The theoretical solution for the histograms with a uniform distribution in uv is, where:  \\
+\hline
+ & $f_x=f^{R}_R(r)\propto 1$ &  $f_x=f^{uv}_R(r)\propto r$\\
+\hline
+$g(\Omega)^{-1}=\tan(\Omega)$ & $f_y=\sec(\Omega)^2$ & $f_y=\sec(\Omega)^2\tan(\Omega)$ \\
+$g(\Omega)^{-1}=\Omega$ & $f_y=1$ & $f_y=\Omega$ \\
+$g(\Omega)^{-1}=\sin(\Omega)$ & $f_y=\cos(\Omega)$ & $f_y=\cos(\Omega)\sin(\Omega)$ \\
+\hline
+\end{tabular}
+\end{table*}
+
+In figure~\ref{fig:histogram_r} shows simulated and theoretical results, when the sensor has a uniform marginal distribution along R.
+%
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_R_hist_perspective.eps} &
+\includegraphics[width=6.0cm]{uniform_R_hist_ortogonal.eps} 
+\end{tabular}
+\caption{Histogram of orthogonal projection (right) and from perspective (left) at red are the theoretical values while in blue are the synthetic values. }
+\label{fig:histogram_r}
+\end{figure}
+%
+Note the equidistant projection is not shown in here but the experimental vs theoretical results are also close.
+
+In the next cases it is show a square, in the topology, instead of a circle, because it is easier to spot the differences between each case, however the histogram was made only using the biggest circle that could fit in the topology.
+For the case we have a uniform distribution in uv ($f_X=f^{uv}_R(r)$):
+
+
+\begin{figure}
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=5.0cm]{uniform_uv_top_perspective.eps} & 
+\includegraphics[width=5.0cm]{uniform_uv_top_equidistant.eps} &
+\includegraphics[width=5.0cm]{uniform_uv_top_ortogonal.eps} \\
+\includegraphics[width=5.0cm]{uniform_uv_hist_perspective.eps} &
+\includegraphics[width=5.0cm]{uniform_uv_hist_equidistant.eps} &
+\includegraphics[width=5.0cm]{uniform_uv_hist_ortogonal.eps} 
+\end{tabular}
+\caption{At top, is the topology created by lens distortion when we have a uniform sensor, at the bottom are the histogram corresponding to each lens, in red are the theoretical histograms and in blue the synthetic data. From left to right, perspective, equidistant and orthogonal lens.}
+%\label{fig:histogram}
+\end{figure}
+
+
+Algorithm observing the radial distribution of the topology until its maximum value, since a topology may not be circular. 
+
+$h(\Omega) = f(\Omega)$ with $\Omega \in [0\ f^{-1}(\max (f(.))]$
+
+A quadratic curve is estimated from $h$ using MSR, and depending on the value of the second order term we can estimate the lens our camera has. Choosing the right lens consists in looking to the second order term. The first case that we look at, is the equidistant lens, if the second order term has a value lower, in modulus, than $10\%$ of the 1st order value the curve is considered to belong to a equidistant camera.  If the second order term is negative the lens on the camera is a orthogonal lens, otherwise it is a perspective lens.

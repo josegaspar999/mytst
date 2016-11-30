@@ -1,0 +1,83 @@
+\section{Introduction}
+
+%Traditional calibration assumes imaging sensors formed by pixels precisely placed in a rectangular grid, as the most common artificial vision systems are like that...
+%
+%BUT non-regular topologies proved to be interesting: fast computations with little resources
+
+%Traditional imaging sensors are composed by pixels precisely placed to form rectangular grids, and thus look like calibrated sensors for many practical purposes such as localizing local extrema, edges or corners.
+
+Traditional imaging sensors are formed by pixels precisely placed in a rectangular grid, and thus look like calibrated sensors for many practical purposes such as localizing local extrema, edges or corners.
+In contrast, the most common imaging sensors found in nature are the compound eyes,
+%found in many crustaceans and, in particular, in arachnids or insects,
+% such as flies or bees
+collections of individual photo cells which clearly do not form rectangular grids, but are very effective for solving %e.g. navigation tasks
+%and certainly inspire the design of artificial systems \cite{Neumann04,Di09}.
+various tasks at hand and thus have inspired the design of many artificial systems.
+%
+Volkel \etal studied several types of eyes and discussed the miniaturization of imaging systems~\cite{Volkel03}.
+%
+Neumann \etal ~\cite{Neumann04} proposed a compound eye vision sensor for 3D ego motion computation.
+%
+Recently, Micro-Electro-Mechanical Systems fabrication technologies were applied to build artificial compound eyes on planar surfaces~\cite{Di09}.
+
+%Compound eyes are the type of eyes most commonly seen in many crustaceans and, in particular, in arachnids or insects, such as flies or bees
+%Being composed by a set of individual photo cells, they allow obtaining wide fields of view and detecting fast movements with few resources. % computational resources.
+%%However compound eyes have a small resolution to avoid an overflow of the animals neural system with too much data.
+%%
+%In recent years the scientific community started to focus on this type of vision aiming to mimic its advantages.
+%
+%V\"{o}lkel \etal studied several types of eyes and their repercussions into electronic imaging and micro-optical designs~\cite{Volkel03}.
+
+In other words, novel fabrication technologies allow creating sensors with pixel arrangements (topologies) tuned for the tasks at hand.
+%Many novel sensors will not have pixels forming regular rectangular grids.
+%In some cases sensor fabrication may benefit of allowing the emergence of sensor topologies instead of rigidly imposing them.
+%This precludes using traditional calibration methodologies~\cite{Agapito99,Zhang99,Sinha04}.
+%In many cases this will preclude using traditional calibration methodologies~\cite{Agapito99,Zhang99,Sinha04}.
+In the cases where the sensor topology is not a rectangular grid using traditional calibration methodologies~\cite{Agapito99,Zhang99,Sinha04} will not be possible.
+%
+Hence, the question arising here is: how to calibrate sensors with unknown topologies?
+%
+%Assuming that the sensors are mounted on mobile robots, the previous question can be reformulated as: can we calibrate an unknown topology sensor just with the data acquired by the sensor? 
+%
+In the case that the sensors are mounted on mobile robots the question can be restated as: can we calibrate an unknown topology of a moving sensor just with the data acquired by the sensor? 
+
+Pierce and Kuipers %pioneered topological calibration by proposing methodologies and doing experiments showing 
+have shown
+that it is possible to reconstruct the topology of a group of sensors just by knowing their output~\cite{Kuipers97}.
+%Pierce and Kuipers introduced the notion that is possible to reconstruct the topology of a group of sensors just by knowing their output~\cite{Kuipers97}.
+They use natural %generic 
+properties of an agent's world in order to infer the structure of its sensors.
+%In particular they use two types of metrics: one based on the premise that usually adjacent sensors have similar values, a second metric is based on the frequency distributions of the sensors, since similar sensors should have the same frequency distributions.
+%
+Olsson \etal improved the methodologies introduced by Pierce and Kuipers by adding information distances and,
+%in the case of de-scrambling a $20\times20$ pixels sensor,
+%in particular, Hamming metrics~\cite{Olsson04}.
+%More recently they compare the effects of different types of distance metrics~\cite{Olsson06}. 
+in particular, Hamming metrics~\cite{Olsson04,Olsson06}.
+They compute the position of several sensors of a Sony Aibo robot, which has, among other sensors, one camera sub-sampled to $8\times 8$ pixels.
+%
+%\TODO{Rewrite: Despite of the results they only use a $8\times8$ pixels camera, and they do not give information how does the information distance is related with the metric distance}.
+%
+%It was also stated by Hyvarinen \etal that a neurons (feature detectors) \emph{topography} can be obtained with a simple modification of the model of independent subspace analysis (ISA).
+%
+Hyvarinen \etal shown that imaging natural scenes allow defining a \emph{neuronal topography} %based on a simple modification of the model of 
+using Independent Subspace Analysis~\cite{nis09}. % (ISA)~\cite{nis09}. %ISA is a generalization of a statistical generative model, the Independent Component Analysis, whose estimation boils down to sparse coding~\cite{nis09}.
+%
+Recently, Grossmann \etal~\cite{Grossmann10} proposed a method for calibrating a central imaging sensor based on a number of photocells. They need to know (estimate) a priori a function curve relating correlation (or information-distance) and distance-angles. % in order their algorithm works. 
+Their algorithm has been tested on a small set of pixels (photocells), about one hundred, as otherwise the computation time and memory would be too large.
+
+In this work we want to do auto-calibration of central sensors with a number of pixels orders of magnitude larger than \cite{Olsson06,Grossmann10}.
+%\TODO{cite google uses the same tecnic for 17M points}
+We approach the computational complexity with Multi Dimensional Scaling (MDS) like algorithms. A relatively old but very effective in the presence of noise free data is the Classical MDS~\cite{MDS}, based on Euclidean distances. Its goal is to find a representation of a data set on a given dimensionality from the knowledge of all interpoint distances.
+Several new algorithms evolved from MDS, such as Isomap~\cite{Isomap}, where geodesic distances induced by a neighborhood graph are used instead of Euclidean distances. More recently Landmark Isomap~\cite{Landmark} was introduced, which uses only a subset of the all-to-all distances used in Isomap and has been proven to work on large scale datasets %(up to 18 million data points)~\cite{Google08}.
+(millions of data points)~\cite{Google08} and constitute therefore a promising research direction. 
+%approach to topological calibration.
+
+%Another branch of the multi dimension scaling algorithms is the Self Organizing Maps (SOM), also known as Kohonen maps \cite{Kohonen81}. SOM are networks that use unsupervised training to preserve the topological properties of the input space. These maps need to have prior information of the topology, usually hexagonal or rectangular grid, to use in a neighborhood function. One characteristic of SOM is that it can be feed by different types of input metric and non metric.
+
+The structure of the paper is the following:
+in Sec.2 we study a simple black and white scenario and show there is a linear relationship between the correlation of the time series acquired by pairs of pixels and the inter-pixel angle;
+in Sec.3 we describe Landmark-Isomap applied to topological calibration and propose
+%a rotation and/or mirroring correction methodology;
+a methodology for choosing a coordinate frame for the imaging sensor;
+in Sec.4 we show some experimental results, and finally in Sec.5 we draw some conclusions.

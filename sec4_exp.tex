@@ -1,0 +1,86 @@
+\section{Results}
+
+%\subsection{Find sensor topology}
+%Figure~\ref{fig:results1} shows ...
+%\input{sec4_exp_res1}
+
+%\subsection{Application of the topology finding}
+
+%Nikon D5000, selected a central 100x100 pixels region (why? non-optimized Dijkstra / matlab?) Known topology, simple rectangular grid (topology errors clear to show locally and globally).
+% ^^ & Calibrated camera (no need?)
+
+In order to test the proposed topology estimation methodology two experiments have been conducted using a Nikon D5000 camera in video mode, selecting just a central region of 100x100 pixels, and thus having the ground truth of a sensor composed by square pixels forming a regular square grid.
+%Data acquisition was performed at 24fps, about ten minutes for each experiment, while panning, tilting and rolling the camera.
+
+%1) perfect conditions: video of the moon in a full moon night, approximately 8min video, 15k images (14784 images); pan tilt (and roll? roll does not influence as the full moon is very close to a circle...)
+%
+%2) non perfect conditions, hand held camera recording a video in the campus garden and car park; pan tilt and roll, and some translation; binarization helps when using short sequences (Grossmann10 and plot in sec2)
+
+
+%--- Exp1: shuffling of pixels: no particular order of pixel-streams - in practice verified that despite the random selection of landmarks, the reconstructions are very similar \TODO{(Procrustes error less than ....)}
+
+\input{sec4_exp_res2}
+
+In the first experiment the camera was pointed to the moon, in a full-moon night, to obtain calibration data (see Fig.~\ref{fig:results2}(a)). The data acquisition was performed at 24fps for about ten minutes (14784 frames), while panning and tilting the camera.
+%
+Figures~\ref{fig:results2}(b,c) show the estimated topology, approximately forming a regular square grid, close to the ground truth.
+%
+%Manifold learning toolbox modified to receive distances instead of the pixel streams (so we can use a correlation based distance instead of a simple euclidean distance)
+% ^^ time delay inter-pixel is the most informative data?
+%
+A test image, acquired in daylight (Fig.~\ref{fig:results2}(d)), was then used to illustrate more clearly that the sequencing of the pixel-streams (see pixel permutations in Figs.~\ref{fig:results2}(e,f,g,h)) does not influence the perceptual quality of the estimated topology and image reconstruction (Figs.~\ref{fig:results2}(i,j,k)).
+%
+Despite having obtained the results in Figs.~\ref{fig:results2}(i,j,k) with different calibrations, and thus subject to different random selections of landmark pixels, the differences of the estimated topologies are small.
+Using a 2D Procrustes, to register the three reconstructed topologies with a square 1-pixel-steps grid, resulted in 
+%average relative pixel localization errors
+%~\footnote{$e= \sum\nolimits_i {\sqrt {xi' - xi} /N/W}$, where $W$ is the image width} of $3.52\%$, $3.35\%$ and $3.92\%$, respectively. 
+%of $11.14\%$, $11.08\%$ and $11.00\%$, and
+inter-pixel (four nearest neighbors) distance-error distribution with a standard deviation of $0.566$, $0.563$ and $0.563$ pixels, respectively. %, around the optimal location.
+
+%--- Exp2: calibration given a sequence of the garden
+% two critical aspects: (i) uniform edge directions or uniform motion (vs longer sequences?), (ii) binarization to make sharper (lesser ambiguous) pixel-stream transitions
+%.... uniform edge directions distribution similar to what was found in the moon sequence, hence the selection of a garden sequence
+%From the bibliography it is known that 
+%
+%results: (i) gray level imply scaling of diagonal directions
+%(ii) lost aspect ratio, maybe due to bias short sequence, not perfectly uniform distribution of pan, tilt and roll
+
+\input{sec4_exp_res3}
+
+In the second experiment, the main purpose is to explore more general calibration scenarios, while keeping the topology estimation accurate.
+%
+In the moon sequence, edges are clearly defined and have directions distributed uniformly despite of the discretization due to the non-infinitesimal pixel size.
+%
+Hence we considered the garden %and car park 
+scenario, Fig.~\ref{fig:results3}(a,b,c,d), where the vegetation also provides many edge directions. For this data set we filmed about twelve minutes, at 24fps, having acquired 17448 frames. In this case we do pan and tilt motions, as well as roll and translation. % although most of the edges are vertical and horizontal. %, 
+%which can be further extended by rolling the camera, 
+%and image binarization augments edges sharpness.
+%
+%After the binarization the 
+Figure~\ref{fig:results3}(g) shows the topology reconstruction considering binary level pixel-streams. Some images used by the algorithm can be seen in Figs.~\ref{fig:results3}(e,f).
+%
+Despite the complexity of scene texture
+%features in the environment observed 
+we do not use a look up table as required in \cite{Grossmann10}. %One observes that the image corners are stretched out, which is due to an overestimation of inter-pixel distances in the vertical direction. This can be due to a bias in the dataset which may contain more horizontal edges than vertical.
+%
+%Fig g is rotated and mirrored
+%
+%Fig h is corrected 
+%
+%The rotation and mirror in 
+%
+%Observing Figs.~\ref{fig:results3}(g,h) simultaneously, one can detect that the topology suffered a mirror effect, this is explained because 
+%
+Note that Fig.~\ref{fig:results3}(g) is the direct result of the Landmark Isomap, while 
+Fig.~\ref{fig:results3}(h) is the result after using Eq.\ref{eq:rot_mirror}, and thus show a detected and corrected mirror effect.
+%
+%which detects if the output of the multi scaling algorithm is affected by a mirror effect.
+%
+%By binarizing the images, Figs.~\ref{fig:results3}(f,g), one augments image edges distinctiveness and improves the accuracy of reconstruction, Fig.~\ref{fig:results3}(h). This beneficial effect of image binarization is in accordance with related work \cite{Grossmann10}, where was shown experimentally that reducing the brightness levels of images would allow using shorter calibration sequences.
+
+
+------
+
+Proposed a simple auto-calibration methodology for an arbitrary central projection camera, in this work an optic fibers bundle. Proved that the relationship between correlation and inter-pixel angle is approximately linear for a camera rotating in the center of a dark spherical-surface with a light circular (hub-cap) source
+
+-------

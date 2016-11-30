@@ -1,0 +1,16 @@
+\section{Mirror effect}
+
+As referred, MDS (and derived methods) provide a reconstruction of the vectors collected in $X$ up to a unitary transformation. Assuming that the camera is mounted on a mobile robot, we propose to fix the unitary transformation in accordance with the motion degrees of freedom of the robot.
+
+Having reconstructed the topology of the imaging sensor allows doing 2D interpolation and therefore computing (approximated) directional derivatives and finding feature points using standard image processing techniques.
+%
+Then, considering for example that a camera has experienced from $t_1$ to $t_2$ a leftwards pan motion and from $t_3$ to $t_4$ an upwards tilt motion, where $t_i$ denote timestamps, allows computing two median optical-flows (or disparities), $v_1$ and $v_2$. The two flow vectors allow therefore setting the coordinates of a pixel location to be first horizontal, growing right, and the second to be vertical, growing down:
+%
+\begin{equation}
+X_f= T X = [\hat v_1 \ \hat v_2]^{-1} X
+\label{eq:rot_mirror}
+\end{equation}
+%
+where $\hat v_1$ and $\hat v_2$ denote normalization to unit length of $v_1$ and $v_2$. Note that noise prevents perfect orthogonality, i.e. $v_1^T v_2 \ne 0$, in which case we rotate both vectors in opposing directions to meet orthogonality. Having $v_1^T v_2 = 0$ with nonzero $v_1$ and $v_2$, implies $|\det(T)| = 1$, where $\det(T)=-1$ indicates a mirroring effect found in the reconstructed topology.
+
+

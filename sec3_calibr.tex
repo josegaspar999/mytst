@@ -1,0 +1,86 @@
+\section{Auto-Calibration Methodology}
+\label{sec:AutoCalibrationMethodology}
+%For the particularly simple scenery described in section \ref{sec:TopologyOfPixelStreams}, it is clear that for correlation values above 0.5 the look up table needed in \cite{Grossmann10} can be replaced by a single slope parameter dependent on the size of the observed hubcap. We propose to further drop this requirement for small sensors by embedding the locations in a plane up to a scale factor. The proposed method consists of directly converting the obtained correlation values to distance values and then applying the landmark Isomap algorithm \cite{Landmark} to obtain the reconstruction. Hence we will consider that the distance between two pixels whose correlation is above $0.5$ is given by $d(\p{x}_i, \p{x}_j) = 1-C(f_i,f_j)$. In the following we provide a short description of the Landmark Isomap algorithm. 
+
+%\paragraph{MDS and Landmark Isomap -}
+The classical Multiple Dimensional Scaling (MDS) algorithm~\cite{MDS} provides a simple way of embedding a set of points in Euclidean space given their inter-distances. 
+%%The first step is recognizing that the squared distance function is a linear transformation of the inner product between points
+%
+%\begin{equation}
+%d^2(\p{x}_i,\p{x}_j) =\langle \p{x}_i-\p{x}_j, \p{x}_i-\p{x}_j \rangle 
+ %=\langle \p{x}_i, \p{x}_i \rangle-2\langle \p{x}_i, \p{x}_j \rangle+\langle \p{x}_j, \p{x}_j \rangle
+%\end{equation}
+%
+%Collecting all squared distances in a matrix $D^2= [d^2(\p{x}_i,\p{x}_j)]$ this can be transformed to a matrix of inner products by inverting the previous linear relation and forcing the resulting embedding to have zero mean \cite{Dattorro10}. More precisely, a matrix of inner products $G$ is obtained from $D^2$ through the transformation $G= -J D^2 J/2$, where $J=(I-1/n)$, $I$ is the $n\times n$ identity matrix and $n$ is the number of the elements of the data. Next, one observes that if the desired point embedding is collected in a matrix $X= [\p{x}_1\ \p{x}_2\ \cdots \ \p{x}_n]$, then 
+%\begin{equation}
+%G=\left [\begin{array}{ccc} \langle \p{x}_1, \p{x}_1\rangle & \hdots & \langle \p{x}_1, \p{x}_n\rangle \\
+ %\vdots & \ddots & \vdots \\ 
+  %\langle \p{x}_n, \p{x}_1\rangle & \hdots & \langle \p{x}_n, \p{x}_n\rangle \end{array}
+ %\right] = X^TX.
+%\end{equation}
+%%
+%$X$ can thus be obtained (reconstructed) up to a unitary transformation using an SVD decomposition, as $G=X^TX=U\Sigma U^T=U\sqrt{ \Sigma} \sqrt{\Sigma}U^T$,
+%and thus $X^T=U\sqrt{\Sigma}$.
+%
+%\begin{myprop} 
+%If distances are multiplied by a scale factor, $d_1=\alpha d$, then the resulting topology is scaled by the same factor, $X_1=\alpha X$ .
+%\label{prop:mds_scale}
+%\end{myprop}
+
+%\begin{proof}
+%%Demo: 
+%Suppose all distances are affected by a gain $\alpha$, $d_1=\alpha d$, then the matrix of squared distances will be $D^2_1=\alpha^2 D^2$. The inner product matrix will have a gain of $\alpha^2$ since $G_1=\alpha^2JD^2J/2$ which will make the SVD of matrix $G_1=U(\alpha^2\Sigma)U^T$. The solution of the algorithm will then be $X_1^T=U\sqrt{\alpha^2\Sigma}$. Since $X^T=U\sqrt{\Sigma}$  one concludes that $X_1=X\alpha$ which proves that a gain in the distances changes the topology of the sensor only by a scale factor as required.
+%\end{proof}
+%%$\Box$
+
+
+%As noted by Tenenbaum \etal \cite{Isomap}, 
+The classical MDS works well when the distances are Euclidean and when the structures are linear, however, when the manifolds are nonlinear, the classical MDS fails to detect the true dimensionality of the data set. 
+%
+Isomap is built on classical MDS but instead of using Euclidean distances it uses an approximation of geodesic distances~\cite{Isomap}. These geodesic distance approximations are defined as a series of hops between neighboring points in the Euclidean space using a shortest path graph algorithm such as Dijkstra's.
+
+Isomap has two computational bottlenecks, namely the memory and time complexity of computing an all-to-all distance matrix, $n\times n$ for a $n$ pixels camera, and computing its eigenvalues.
+Landmark Isomap improves both inefficiencies~\cite{Landmark}.  Instead of using all the data points Landmark Isomap proposes using just $k$ randomly selected points (landmarks) with $k \ll n$. The embedding is done the same way as in MDS but using only the $k$ landmarks. 
+%The distance matrix, $D$ is now just a $k\times n$ matrix. After embedding the landmarks, $K=\sqrt{\Sigma}U^T$, where $K$ collects the $k$ reconstructed landmark locations, one can embed the %$n-y$ 
+%remaining points:
+%
+\begin{equation}
+X=\frac{1}{2}K^*(\overline{D_k}-D_k)
+\label{eq:iso_other_pts}
+\end{equation}   
+%
+where $K^*=[u_1^T/\sqrt{\Sigma_1}\ \hdots \ u_s^T/\sqrt{\Sigma_s}]^T$ is the pseudo-inverse transpose of $K$, $s$ is the size of the dimensionality space, $D_k$ is the distance matrix from the landmarks to the complete data, and $\overline{D_k}$ is the mean of the columns of $D_k$.  
+
+In our particular case, this algorithm is used to provide a pixel embedding given the inter-pixel distances estimated from the pixel stream correlations.
+
+%\paragraph{Choosing the Imaging Coordinate System - }
+%
+%As referred, MDS (and derived methods) provide a reconstruction of the vectors collected in $X$ up to a unitary transformation. Assuming that the camera is mounted on a mobile robot, we propose to fix the unitary transformation in accordance with the motion degrees of freedom of the robot.
+%
+%Having reconstructed the topology of the imaging sensor allows doing 2D interpolation and therefore computing (approximated) directional derivatives and finding feature points using standard image processing techniques.
+%%
+%Then, considering for example that a camera has experienced from $t_1$ to $t_2$ a leftwards pan motion and from $t_3$ to $t_4$ an upwards tilt motion, where $t_i$ denote timestamps, allows computing two median optical-flows (or disparities), $v_1$ and $v_2$. The two flow vectors allow therefore setting the coordinates of a pixel location to be first horizontal, growing right, and the second to be vertical, growing down:
+%%
+%\begin{equation}
+%X_f= T X = [\hat v_1 \ \hat v_2]^{-1} X
+%\label{eq:rot_mirror}
+%\end{equation}
+%%
+%where $\hat v_1$ and $\hat v_2$ denote normalization to unit length of $v_1$ and $v_2$. Note that noise prevents perfect orthogonality, i.e. $v_1^T v_2 \ne 0$, in which case we rotate both vectors in opposing directions to meet orthogonality. Having $v_1^T v_2 = 0$ with nonzero $v_1$ and $v_2$, implies $|\det(T)| = 1$, where $\det(T)=-1$ indicates a mirroring effect found in the reconstructed topology.
+
+
+\paragraph{Calibration Methodology -}
+
+Summarizing the previous sections, estimating and embedding the topology of a central imaging sensor involves acquiring a set of images observing a bright circle faraway, e.g. the full moon. Since the correlation of pixel-streams, $C(f_i,f_j)$ is invariant to shuffling of the time-series (as long as both time series are affected by the same shuffling), these images can be acquired either as a continuous sequence (i.e. a video) or as discrete individual images. In the end one wants to obtain the embedded pixel locations, $X_f= [\p{x}_1\ \p{x}_2\ \cdots \p{x}_N]$.
+%
+The required steps are the following:
+%
+(i) Data binarization using a fixed threshold such that each pixel stream value is either $1$ or $-1$.
+%
+(ii) Computing the normalized correlation between all the pixel-streams using Eq.\ref{eq:correlation_simplified}.
+%
+(iii) Converting the inter-pixel correlations into distances, using the linear transformation $d(\p{x}_i,\p{x}_j)=1-C(f_i,f_j)$ (based on properties \ref{prop:corr_linearity} and \ref{prop:mds_scale}).
+%
+(iv) Using Landmark Isomap to compute the topology of the sensor. 
+%
+(v) (optional in case an external reference frame is available) Choosing a coordinate system for the camera based on the supporting robot motion (Eq.\ref{eq:rot_mirror}). 

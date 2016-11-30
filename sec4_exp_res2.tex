@@ -1,0 +1,92 @@
+%\begin{figure}
+%\centering
+%\begin{tabular}{ccc}
+%\includegraphics[width=3cm]{face_case_35.eps} & 
+%\multicolumn{2}{c}{ \includegraphics[width=5cm]{face_shuffle.eps} }\\
+%(a) Test image & \multicolumn{2}{c}{(b) $2 \times 4$ shuffling } %\\
+%\vspace{3mm} \\
+%\includegraphics[width=3cm]{face_case_32.eps} & 
+%\includegraphics[width=3cm]{face_case_34.eps} & 
+%\includegraphics[width=3cm]{face_case_30.eps} \\
+%(c) $2 \times 4$ shuffling &
+%(d) $10 \times 10$ shuffling &
+%(e) $100 \times 100$ shuffling %\\
+%\vspace{3mm} \\
+%\includegraphics[width=3cm]{topology_file_res02_case_32.EPS} & \includegraphics[width=3cm]{topology_file_res02_case_34.EPS} & \includegraphics[width=3cm]{topology_file_res02_case_30.EPS} \\
+%(f) Reconstruction after & (g) Reconstruction after & (h) Reconstruction after \\
+% $2 \times 4$ shuffling &
+% $10 \times 10$ shuffling &
+% $100 \times 100$ shuffling %\\
+%\vspace{3mm} \\
+%\end{tabular}
+%\caption{
+%Topology estimation applied to the reconstruction of a shuffled $100 \times 100$ sensor.
+%%Topology estimation applied to reordering a shuffled sensor.
+%%Topology estimation applied to the reconstruction of an image.
+%Test image before shuffling (a).
+%The pixels of the sensor are shuffled in (i) $2 \times 4$ blocks, (ii) $10 \times 10$ blocks, or (iii) $100 \times 100$ (all) pixels, as illustrated on the test image, (b,c), (d) or (e), respectively.
+%%The pixels of a test image (a) are shuffled in $2 \times 4$ blocks (b,c), $10\times\10$ blocks, or $100\times\100$ (all) pixels (d). 
+%Each of the three shufflings is then subject to topology estimation, and the resulting topology applied to reconstruct the test image (f,g,h).
+%%The estimated sensor topology, applied to each of the three cases, in then used to reconstruct the test image (e,f,g).
+%}
+%\label{fig:results2}
+%\end{figure}
+
+
+\begin{figure}[t]
+\centering
+\begin{tabular}{ccc}
+\includegraphics[height=3.0cm]{moon_view_6frames.eps} &
+%\includegraphics[height=3.2cm]{topology_32_lines_unrot.eps} & 
+\includegraphics[height=3.2cm]{topology_32_lines_unrot2.eps} & 
+\includegraphics[height=2.7cm]{topology_32_lines_rot2.eps} \\
+%\parbox{3cm}{\centering \small (a) Calibration frames 890, 2712, 4281 and 5263} &
+\parbox{3cm}{\centering \small (a) 6 of 14784 calibration frames} &
+\parbox{3cm}{\centering \small (b) Topology found} & 
+\parbox{5cm}{\centering \small (c) Topology found, rotated (Eq.\ref{eq:rot_mirror}) and top-right zoomed} %\\ 
+\vspace{3mm} \\
+\end{tabular}
+%
+\begin{tabular}{ccccc}
+\includegraphics[width=2.0cm]{car_case_35.eps} & 
+\includegraphics[width=2.0cm]{face_shuffle2.eps} &
+\includegraphics[width=2.0cm]{car_case_32.eps} & 
+\includegraphics[width=2.0cm]{car_case_34.eps} & 
+\includegraphics[width=2.0cm]{car_case_30.eps} \\
+\parbox{2cm}{\centering \small (d) Test image} &
+\parbox{2cm}{\centering \small (e) $2 \times 4$ permutation} &
+\parbox{2cm}{\centering \small (f) $2 \times 4$ permutation} &
+\parbox{2cm}{\centering \small (g) $10 \times 10$ permutation} &
+\parbox{2cm}{\centering \small (h) $100 \times 100$ permutation} %\\
+\vspace{3mm} \\
+\end{tabular}
+%
+\begin{tabular}{ccc}
+%\includegraphics[width=2.0cm]{topology_file_res02_case_32_v1.eps} & 
+%\includegraphics[width=2.0cm]{topology_file_res02_case_34_v1.eps} & 
+%\includegraphics[width=2.0cm]{topology_file_res02_case_30_v1.eps} \\
+\includegraphics[width=2.0cm]{topology_find_res02_case_32_rot_mirror.eps} & 
+\includegraphics[width=2.0cm]{topology_find_res02_case_34_rot_mirror.eps} & 
+\includegraphics[width=2.0cm]{topology_find_res02_case_30_rot_mirror.eps} \\
+\parbox{3.0cm}{\centering \small (i) Reconstruction after $2 \times 4$ permutation} &
+\parbox{3.0cm}{\centering \small (j) Reconstruction after $10 \times 10$ permutation} &
+\parbox{3.2cm}{\centering \small (k) Reconstruction after $100 \times 100$ permutation} %\\
+\vspace{3mm} \\
+\end{tabular}
+\caption{
+%Topology using minimum bounding box (note: 14784 frames).
+%Topology estimation applied to the reconstruction of a shuffled $100 \times 100$ sensor.
+%Topology estimation applied to reordering a shuffled sensor.
+%Topology estimation applied to the reconstruction of an image.
+Moon images used to estimate the topology of a $100 \times 100$ sensor (a).
+Estimated topology after random permutation of the pixel-streams (b,c).
+%Test image before shuffling (d).
+%The pixels of the sensor are shuffled in (i) $2 \times 4$ blocks, (ii) $10 \times 10$ blocks, or (iii) $100 \times 100$ (all) pixels, as illustrated on the test image, (e,f), (g) or (h), respectively.
+Test image before permutation (d).
+%Permutations of pixel-streams in $2 \times 4$ blocks (e), $10 \times 10$ blocks, or $100 \times 100$ (all) pixels, illustrated on the test image, (f), (g) or (h), respectively.
+%Each of the three permutations is then subject to topology estimation, and the resulting topology applied to reconstruct the test image (i,j,k).
+Permutations of pixel-streams in $2 \times 4$ blocks, $10 \times 10$ blocks, or $100 \times 100$ (all) pixels, illustrated on the test image, (e,f,g,h).
+Estimated topology applied to reconstruct the test image after the three permutations (i,j,k).
+}
+\label{fig:results2}
+\end{figure}

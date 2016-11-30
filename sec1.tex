@@ -1,0 +1,200 @@
+%\section{Introduction}
+%
+%Assuming that we have a sensor with a known density distribution in A, is it possible to know what type of lens do we have at the other end of the sensor based on the topology of the raxels? 
+
+
+%\section{Camera Model}
+%
+%Our camera model is composed by a CCD camera as it can be seen in figure~\ref{fig:setup} marked with a $A$, in front of the camera is a cable of optic fibers ($B$), and in the front of the the fibers is a lens ($C$). The fibers of the optic fiber cable are randomly mixed inside the cable, meaning that a fiber has a position $(u_e,v_e)$ at one end ($E$) and at the other end ($D$) has a different position $(u_d,v_d)$ i.e. $(u_e,v_e)\neq (u_d,v_d)$.
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=12.0cm]{setup_v1.eps} 
+%\caption{An overview of the setup, and some examples of the images acquired in each step}
+%\label{fig:setup}
+%\end{figure}
+%%
+%%sensor with a known density distribution in A,
+%
+%Central cameras can b
+%
+%\begin{eqnarray}
+%\Omega=h(r/l) \\
+%r/l=h^{-1} (\Omega)
+%\end{eqnarray}
+%
+%In our work we assume that we have three different lens: 
+%consider that r is the radial distance from the center of an imaging sensor, $l$ is the focal length and $\Omega$ is the angle between the principal axis and the incoming ray.
+%In the following we assume  that we have three different lens, marked in the figure as $c$: 
+%
+%%\begin{enumerate} 
+%%	\item  perspective lens $\Omega =atan(r/l)$
+%%	\item equidistance projection lens, $\Omega =r/l$
+%%	\item orthogonal projection lens, $\Omega =asin(r/l)$
+%%\end{enumerate}
+%
+%\begin{description}
+	%\item[Case 1] perspective lens, $\Omega =atan(r/l)$ 
+	%\item[Case 2] equidistance projection lens, $\Omega =r/l$
+	%\item[Case 3] orthogonal projection lens, $\Omega =asin(r/l)$
+%\end{description}
+%
+%From now on the focal length $l$ will be not considered since it is a constant which cannot be
+%observed.
+%
+%Grossberg and Nayar\cite{Raxels} defined the concept of raxels, raxels is a mathematical abstraction of the position of the light sensor. Instead of the real position of the sensor, raxels are assumed to be along the direction of the chief ray associated to the sensor, they can be catheterized as a $3D$ position and a direction vector, as it can be seen in Fig.\ref{fig:setup}(d).
+
+
+
+
+
+\section{Camera Model}
+
+%Our camera model is composed by a CCD camera as it can be seen in figure~\ref{fig:setup} marked with the letter $A$, in front of the camera is a cable of optic fibers ($B$), and in the front of the the fibers is a lens ($C$). The fibers of the optic fiber cable are randomly mixed inside the cable, meaning that a fiber has a position $(u_e,v_e)$ at one end ($E$) and at the other end ($D$) has a different position $(u_d,v_d)$ i.e. $(u_e,v_e)\neq (u_d,v_d)$.
+
+%\begin{figure*}
+%\centering
+%\includegraphics[width=10.0cm]{setup_v1.eps} 
+%\caption{An overview of the setup, and some examples of the images acquired in each step}
+%\label{fig:setup}
+%\end{figure*}
+%%
+
+
+%sensor with a known density distribution in A,
+
+Discrete central cameras, as conventional (standard) cameras, are described geometrically by the pin-hole projection model. Differently from standard cameras, discrete cameras are simply composed of collections of pixels organized as pencils of lines with unknown topologies.
+%
+%We assume to have a discrete central camera. Central cameras can be defined as a collection of pixels, where the integration area of each pixel collapses to a point. 
+
+Grossberg and Nayar\cite{Raxels} defined the concept of raxels, which is a mathematical abstraction of the position of the light sensor. Instead of the real position of the sensor, raxels are assumed to be along the direction of the chief ray associated to the sensor, they can be characterized as a $3D$ position, $p$, and a direction vector, $q$, as it can be seen in Fig.\ref{fig:setup}(d).
+%
+However since we are working with central cameras, one considers that all light rays converge to the same point, thus, making $p_i=p_j$ for any pair of raxels. Therefore, one can ignore the raxels position, since the only useful information is contained in the direction vector $q$. As a direction vector, $q$, one can assume that all the vectors have the same norm, this assumption removes one degree of freedom, which allow us to represent $q$ with only two angles, $(\Omega,\mu)$.
+
+Traditionally the coordinate system of a camera sensor is represented by $u_i$ and $v_i$, which are the ith pixel position along horizontal and vertical grid. Here we use a polar coordinate system of $[r\ \mu]$, where $r_i=\sqrt{(u_i-u_0)^2+(v_i-v_0)^2}$, $\mu_i =\acos (u_i/v_i)$, and $[u_0\ v_0]$ is the principal point. %position of the center of the sensor.
+
+
+In this work we assume that the discrete camera geometric model can be characterized by an unknown radial function $h$. This function links the angle at which a light ray (raxel) hits the camera lens with the imaged point (pixel coordinates), 
+%In our work we assume that we have three different lens, where every lens has know function $h^{-1}$. This function links the angle at which a light ray hits the camera lens with the imaged point (pixel coordinates),  
+%
+\begin{equation}
+\Omega=h(r/l),% \\
+%r/l=h^{-1} (\Omega)
+\end{equation}
+%
+considering that $r$ is the radial distance, in pixels, from the center of an imaging sensor, $l$ is the focal length and $\Omega$ is the angle between the principal axis and the incoming ray, as it can be seen in figure~\ref{fig:setup} (d), note that the $\mu$ is the same as in pixels coordinates, since the lens transformation only affect the radius.
+
+In the following we assume  that we have three different lenses\cite{Kannala06}: 
+%
+%\begin{enumerate} 
+%	\item  perspective lens $\Omega =atan(r/l)$
+%	\item equidistance projection lens, $\Omega =r/l$
+%	\item orthogonal projection lens, $\Omega =asin(r/l)$
+%\end{enumerate}
+%
+%\begin{enumerate}
+%
+%
+\begin{eqnarray}
+\Omega =atan(r/l) \label{eq:presp} \hspace{3.1cm} \text{perspective lens,}\\
+%
+%\end{equation}
+%
+%\textbf{2} equidistance projection lens,
+%\begin{equation}
+\Omega =r/l \hspace{2.3cm} \text{equidistance projection lens,}\label{eq:equi}\\
+%
+%\end{equation}
+%	
+%\textbf{3} orthogonal projection lens,
+%\begin{equation}
+\Omega =asin(r/l)  \hspace{1.6cm} \text{orthogonal projection lens.} 
+%\Omega =asin(r/l).
+\label{eq:ortho}
+\end{eqnarray}
+%\end{enumerate}
+%
+From now on the focal length $l$ will be not considered since it is a constant that will not have impact on the differentiation of a lens type.
+
+In order to classify a lens mounted on a camera one as to follow the next steps: i)  calibrate topologically a sensor; ii) get the marginal density of the topology along $\mu$; iii) find the lens that has the closest marginal density function to  the marginal density function of the topology. 
+
+
+
+\section{Discrete Camera Model}
+
+
+
+\input{sec1_setup_fig}
+
+%%In this work we have two types of camera, one that is a regular CCD with a lens in front. 
+%
+%%A discrete camera is defined as a collection of pixels,
+%A discrete camera is a set of pixels, disposed in a general topology.
+%%organized in a general topology. 
+%
+%A discrete camera is composed by a collection of photocells characterized geometrically by a pencil of 3D optical rays.
+%
+Discrete cameras, as conventional (standard) cameras, are described geometrically by the pin-hole projection model. Differently from standard cameras, discrete cameras are simply composed of collections of pixels organized as pencils of lines with unknown topologies.
+%
+%In this work we assume point pixels, meaning that the integration area of each pixel collapses to a point.   
+%The camera topology can be defined as the collection of pixels, which is unknown and is to be found.
+
+
+Figure~\ref{fig:setup} shows a model of a discrete camera.
+%
+The discrete camera is composed by
+%
+one conventional CCD camera (see Fig.~\ref{fig:setup}(a) label $A$),
+%
+one cable of optic fibers mounted in front of the camera ($B$),
+%
+and one extra lens mounted in front of the fibers ($C$).
+% 
+The fibers of the optic fiber cable are randomly mixed inside the cable, meaning that a fiber has a position $(u_e,v_e)$ at one end ($E$) and at the other end ($D$) has a different position $(u_d,v_d)$, i.e. $(u_e,v_e)\neq (u_d,v_d)$. 
+%Note that in this case the only information available are a set of pixel streams, $f_i$, a time series of brightness values captured by $i$th pixel.
+
+
+Grossberg and Nayar\cite{Raxels} have introduced the concept of raxel to allow representing more general cameras. A raxel is in simple terms an abstraction of the position of a light (punctual) sensor. Instead of representing the real position of the light (punctual) sensor, a raxel is just representing the direction of the chief ray associated to the sensor. A raxel is characterized as a $3D$ position and a direction vector. %, as it can be seen in Fig.\ref{fig:setup}(d).
+
+
+In this work we consider central discrete cameras. These cameras are represented as collections of raxels. Since the cameras are central, the $3D$ position associated to each raxel can be the same for all raxels. Raxels can therefore be represented as vectors on the unit sphere $\p{x_i}\in\Sphere{2}$.
+%
+%
+%In this work we assume that the discrete camera geometric model can be characterized by an unknown radial function $h$. This function links the angle at which a light ray (raxel) hits the camera lens with the imaged point (pixel coordinates),  
+%%
+%\begin{equation}
+%\Omega=h(r/l) 
+%%r/l=h^{-1} (\Omega)
+%\end{equation}
+%%
+%where $r$ is the radial distance (pixels), from the center of the imaging sensor, $l$ is the focal length and $\Omega$ is the angle between the principal axis and the incoming ray (see Fig.~\ref{fig:setup}(d)).
+%where $r$ denotes the radial distance from the center of the imaging sensor to the point where the raxel crosses the image plane (pixels), $l$ is the focal length and $\Omega$ is the angle between the principal axis and the incoming ray (see Fig.~\ref{fig:setup}(d)).
+%
+Each raxel can also be characterized by two values, $(\Omega_i, \mu_i)$.
+$\Omega_i$ is the angle between the principal axis and the incoming ray (see Fig.~\ref{fig:setup}(d)).
+%
+The azimuthal angle $\mu_i$ characterizes both the angular location of an imaged point and the plane containing a raxel.
+%is the same as in pixels coordinates, since the lens transformation only affect the radius. This is true in any type of central camera.
+
+
+In uncalibrated discrete cameras is not possible to define corner points or image lines since the topology is unknown. The only information available for camera calibration
+are a set of pixel streams, $\{ f_i \}$, where each pixel-stream $f_i$ corresponds to a time series of brightness values captured by $i^{th}$ photocell (pixel).
+%
+%In order to build a topology one has to find a way how use the available information. % and transform it in to a distance information.
+Galego~\etal\cite{Galego13} have shown that the normalized cross correlation of two pixels streams, $C(f_i, f_j)$, is affine to the angular distance of pixels, $d(\p{x}_i,\p{x}_j)$, when observing a circular object.
+%
+Having all-to-all raxel angular distances, one can use %the multidimensional scaling algorithm 
+MDS to estimate the full topology. 
+%
+In calibration methodology can therefore be summarized as
+%
+(i) receive a set of pixels streams,
+(ii) compute the cross correlation between all pixels streams,
+(iii) convert all correlation values into angular distances, and finally
+(iv) estimate the topology using the distances previously computed.
+%
+See Fig.~\ref{fig:diagram}.
+
+\input{sec5_fig}
+
+

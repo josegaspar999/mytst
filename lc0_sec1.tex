@@ -1,0 +1,194 @@
+
+\begin{abstract}
+In this document we consider cameras having a cable of optic fibers forming a link between the image sensor (CCD) and a lens. We approach the problem of finding the lens type having estimated the sensor topology. We assume that we have a uniform density of fibers in the far-end of the cable.
+\end{abstract}
+
+
+\section{Camera Model}
+
+.... put here illustration (diagram) of the setup. Example CCD camera, cable of optic fibers, optic fibers frontal lens.
+
+Consider that $r$ is the radial distance from the center of an imaging sensor, $l$ is the focal length and $\phi$ is the angle between the principal axis and the incoming ray.
+In the following we assume  that we have three different lens: 
+
+\begin{enumerate} 
+	\item  perspective lens $\varphi = l \ atan(r)$
+	\item equidistance projection lens, $\varphi = l \ r$
+	\item orthogonal projection lens, $\varphi = l \ asin(r)$
+\end{enumerate}
+
+From now on the focal length $l$ will be not considered since it is a constant which cannot be observed. %Instead we will use f to denote pixel densities.
+
+
+Suppose we have two kinds of pixels densities characterizing the cable of optic fibers (i) uniform in $uv$ (pixel coordinates), or (ii) constant for each circle, i.e. uniform in r. The uniform density in $uv$ implies a non uniform density in $r$, and vice versa (see figure\ref{fig:uniform_disp}).
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv.eps} &
+\includegraphics[width=6.0cm]{uniform_R.eps} 
+\end{tabular}
+\caption{Uniform density in uv, i.e. $f^{uv}(r,\theta)=$const (left). Uniform density considering just r, i.e. $f^r(r)=$const the marginal function obtained by accumulating for all values of $\theta$ (right).}
+\label{fig:uniform_disp}
+\end{figure}
+
+%Let us start with the uniform density in uv. Noting that r=sqrt(u2+v2), the distribution corresponding to the uniform density in uv has a form of
+%\begin{equation}
+%f(r)= a*r*(u(r)-u(r-\max(r)))
+%\end{equation}
+%where $u(.)$ denotes the unit step / Heaviside function.
+
+Given one probability density function (PDF), $f$, one obtains the cumulative distribution function (CDF), $F$, by integrating along the area wanted. Since we are using polar coordinates $(r,\alpha)$ we have to take into account the transformation $r$ correcting the integration elements $dr, d\alpha$:
+% 
+\begin{equation}
+ %F(r, \alpha) = \int^{2\pi}_{0} \int^{R}_0 f(r, \alpha) r\ dr d\alpha
+ F(r, \alpha) = \int^{\alpha}_{0} \int^{r}_0 f(r, \alpha) r\ dr d\alpha
+\label{eq:CDF}
+\end{equation}
+%
+where $\alpha \in [0,\ 2\pi]$ and $r \in [0,\ r_{max}]$.
+
+The radial density, i.e. the PDF along the radial direction, is a single integral:
+% 
+\begin{equation}
+ %F(r, \alpha) = \int^{2\pi}_{0} \int^{R}_0 f(r, \alpha) r\ dr d\alpha
+ f_R(r) = \int^{2\pi}_{0} f(r, \alpha) d\alpha .
+\label{eq:int_circle}
+\end{equation}
+%
+Note that $F(r, 2\pi)= \int^r_{0} r f_R(r) dr$.
+
+
+\section{Marginal PDF characterizing Pixel Densities}
+
+
+In the case of uniform density in $uv$ one has $f^{uv}(r,\alpha)= C$.
+Here the superscript represents the distribution.
+Replacing $f$ by $f^{uv}$ in eq~\ref{eq:CDF} the CDF is
+		$F_R(r)= C \pi r^2 $ .
+Integrating over $\theta$ one obtains the marginal density in $r$ as
+ \[ f_R(r)= dF(r) / dr . \]
+
+
+Considering now the uniform density in $r$ one has $f^r(r, \alpha)= A / (2\pi r)$,
+where $A$ denotes the number of points per radius $r$.
+Replacing $f$ by $f^r$ in eq~\ref{eq:CDF} the CDF is $F_R(r)= A r$.
+The marginal PDF is the derivative i.e.
+%
+\begin{equation}
+f^r_R(r)= A.
+\end{equation}
+
+
+Note (a simpler way for derivations): Starting with the definition of marginalization
+%
+%\begin{equation}
+$f_X(x)=\int_{-\inf}^{\inf} f(x,y)\ dy$
+%\end{equation}
+%
+and considering polar coordinates, implies that one has to had $r$ in the integral, and finally obtain
+%\begin{equation}
+$f_R(r)=\int^{2\pi}_0 f(r,\alpha)r\ d\alpha$ .
+%\end{equation}
+%
+As expected both ways lead to the same result.
+
+
+The next figure~\ref{fig:histogram} shows the marginal distribution %of in both cases 
+$F^{\{uv,R\}}_R(r)$ when we have a uniform density in $uv$ or when it is in $R$.
+
+\begin{figure} \centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv_hist.eps} &
+\includegraphics[width=6.0cm]{uniform_R_hist.eps} 
+\end{tabular}
+\caption{Counting pixels in each circle (thin crown). Uniform distribution in uv (left) and uniform distribution in R (right).}
+%On the left is the distribution of R when we have a uniform distribution in uv, on the right is the distribution of R when there is a uniform distribution in R.}
+\label{fig:histogram}
+\end{figure}
+
+
+%\section{Lens Effect and Raxel Distributions}
+%\section{Lens Effect and Raxel Densities}
+\section{Lens Effect on the Density of Raxels given Pixels Distributed Uniformly}
+
+The marginal distributions presented thus far characterize pixel distributions at the image plane. Now we want to characterize raxel distributions, i.e. the sensor topology including the geometric transformations created by the various types of lenses.
+
+In other words, the lenses change the marginal distributions. From now on we will refer to marginal density as density.
+
+The probability density function of a random variable X is given as $f_X(x)$. It is possible to calculate the probability density function of some variable $Y= g(X)$. This is also called a “change of variable” and is in practice used to generate a random variable of arbitrary shape $f_{g(X)} = f_Y$ using a known (for instance uniform) random number generator.
+
+\begin{equation}
+f_Y(y)=\left | \frac{d}{dy} (g^{-1}(y)) \right | f_x(g^{-1}(y))
+\label{eq:wiki_copy}
+\end{equation}
+
+%\begin{tabular} {cc}
+%In case of uniform distribution in R we have & The theoretical solution for the histograms with a uniform distribution in uv is, where \\
+%1 & 2
+%\end{tabular}
+
+\vspace{5mm}
+
+\begin{table*}[h] % place table ‘‘here’’ or at bottom of page
+\centering
+%\bigskip
+
+\begin{tabular}{|l|p{1.5in}|p{2.0in}|}
+\hline
+& In case of uniform distribution in R we have:  & The theoretical solution for the histograms with a uniform distribution in uv is, where:  \\
+\hline
+ & $f_x=f^r_R(r)\propto 1$ &  $f_x=f^{uv}_R(r)\propto r$\\
+\hline
+$g(\Omega)=\tan(\Omega)$ & $f_y=\sec(\Omega)^2$ & $f_y=\sec(\Omega)^2\tan(\Omega)$ \\
+$g(\Omega)=\Omega$ & $f_y=1$ & $f_y=\Omega$ \\
+$g(\Omega)=\sin(\Omega)$ & $f_y=\cos(\Omega)$ & $f_y=\cos(\Omega)\sin(\Omega)$ \\
+\hline
+\end{tabular}
+\end{table*}
+
+For the simplest case of uniform distribution in R:
+
+\begin{figure} \centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_R_hist_perspective.eps} &
+\includegraphics[width=6.0cm]{uniform_R_hist_ortogonal.eps} 
+\end{tabular}
+\caption{Histogram of orthogonal projection (right) and from perspective (left) at red are the theoretical values while in blue are the synthetic values. }
+%\label{fig:histogram}
+\end{figure}
+
+Note the equidistant projection is not shown in here but the experimental vs theoretical results are also close.
+
+In the next cases it is show a square, in the topology, instead of a circle, because it is easier to spot the differences between each case, however the histogram was made only using the biggest circle that could fit in the topology.
+For the case we have a uniform distribution in uv ($f_X=f^{uv}_R(r)$):
+
+
+\begin{figure} \centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv_top_perspective.eps} &
+\includegraphics[width=6.0cm]{uniform_uv_hist_perspective.eps} 
+\end{tabular}
+\caption{Angle distribution of a perspective lens, histogram made by collecting distances from all to the center of the mass (0,0). In red theoretical histogram, in blue real histogram. }
+%\label{fig:histogram}
+\end{figure}
+
+
+\begin{figure} \centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv_top_equidistant.eps} &
+\includegraphics[width=6.0cm]{uniform_uv_hist_equidistant.eps} 
+\end{tabular}
+\caption{Angle distribution of an equidistance projection lens, histogram made by collecting distances from all to the center of the mass (0,0).}
+%\label{fig:histogram}
+\end{figure}
+
+\begin{figure} \centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv_top_ortogonal.eps} &
+\includegraphics[width=6.0cm]{uniform_uv_hist_ortogonal.eps} 
+\end{tabular}
+\caption{Angle distribution of an orthogonal projection lens, histogram made by collecting distances from all to the center of the mass (0,0).  In red theoretical histogram, in blue real histogram.}
+%\label{fig:histogram}
+\end{figure}
+

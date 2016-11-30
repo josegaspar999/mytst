@@ -1,0 +1,116 @@
+\section{Marginal PDF characterizing Pixel Densities}
+
+Suppose we have two kinds of pixels densities characterizing the cable optic fibers (i) uniform in $uv$ (pixel coordinates), or constant marginal density for each circle, i.e. uniform in r. The uniform density in $uv$ implies a non uniform density in $r$, and vice versa (see figure\ref{fig:uniform_disp}).
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=6.0cm]{uniform_uv.eps} &
+\includegraphics[width=6.0cm]{uniform_R.eps} \\
+(a) & (b) \\
+\includegraphics[height=4.0cm]{uniform_uv_hist.eps} &
+\includegraphics[height=4.0cm]{uniform_R_hist.eps} \\
+(c) & (d) 
+\end{tabular}
+\caption{
+Uniform density in uv, i.e. $f_{uv}(x,y)=$const (a).
+Uniform density considering just r, i.e. $f_r(r)=$const the marginal function obtained by accumulating for all values of $\alpha$ (b).
+Histogram of (a) and (b) along the radius, considering a thin crowd for each $r$, shown in (c) and (d), respectively.
+}
+\label{fig:uniform_disp}
+\end{figure}
+
+%Let us start with the uniform density in uv. Noting that r=sqrt(u2+v2), the distribution corresponding to the uniform density in uv has a form of
+%\begin{equation}
+%f(r)= a*r*(u(r)-u(r-\max(r)))
+%\end{equation}
+%where $u(.)$ denotes the unit step / Heaviside function.
+
+
+The probability density function of a random variable X is given as $f_X(x)$. It is possible to calculate the probability density function of some variable $Y= g(X)$. This is also called a change of variable and is in practice used to generate a random variable of arbitrary shape $f_{g(X)} = f_Y$ using a known (for instance uniform) random number generator.
+
+\begin{equation}
+f_Y(y)=\left | \frac{d}{dy} (g^{-1}(y)) \right | f_x(g^{-1}(y))
+\label{eq:wiki_copy}
+\end{equation}
+
+%\begin{tabular} {cc}
+%In case of uniform distribution in R we have & The theoretical solution for the histograms with a uniform distribution in uv is, where \\
+%1 & 2
+%\end{tabular}
+
+Looking at the case we assume uniform density in uv, we have to convert the density in to the polar coordinates, the transformation from Cartesian coordinates into polar is:
+
+\begin{equation} 
+\begin{array}{c}
+x=R\cos(\alpha) \\
+y=R\sin(\alpha)
+\end{array}
+\label{eq:xy2polar}
+\end{equation}
+%
+considering $J$ the Jacobian matrix of equation~\ref{eq:xy2polar} we have:
+
+\begin{equation}
+|J(r,\alpha)|= \left |
+\begin{array} {cc}
+\cos(\alpha) & \sin(\alpha) \\
+-r\sin(\alpha) & r\cos(\alpha)
+\end{array} \right |=r
+\end{equation}
+
+As we assume that we have a uniform density in uv, we can consider that it is one, $f_{ux}(x,y)=1$, replacing the the density and the Jacobian in equation \ref{eq:wiki_copy} the result is:
+
+\begin{equation}
+f_{r\alpha}(r,\alpha)=|J(r,\alpha)|f_{ux}(r\cos(\alpha), r\sin(\alpha))=r
+\end{equation} 
+
+
+%The distribution made by a density function is calculated using an integral in the area wanted, however since we are using the polar coordinates we have to take into account the transformation $r$.
+%%
+%
+%\begin{equation}
+ %F(r, \alpha) = \int^{2\pi}_{0} \int^{R}_0 f(r, \alpha) r\ dr d\alpha
+%\label{eq:int_circle}
+%\end{equation}
+%%
+%$f$ corresponds to the density function, in the case of uniform distribution in $uv$ the $f^{uv}(r,\alpha)=c$, being $c$ the value of the uniform distribution and the superscript represents the distribution, replacing in eq~\ref{eq:int_circle} the distribution will be $c\pi R^2$.
+%%
+%For the uniform distribution in $R$ the density function corresponds to $f^R(r, \alpha)=\frac{a}{2\pi r}$, being $a$ the number of points per radius $r$. Replacing in  eq~\ref{eq:int_circle} the distribution will be $a R$.
+%However since we want only the marginal distribution in $r$, $f_R(r)=\frac{F(r,\alpha)}{d_r}$. In the case of the uniform distribution in $uv$ the marginal distribution will be 
+%%
+%\begin{equation}
+%f^{uv}_R(r)=c2\pi r
+%\end{equation}
+%%
+%in the case of uniform distribution in R it will be a constant 
+%%
+%\begin{equation}
+%f^{R}_R(r)=a.
+%\end{equation}
+
+Since the definition of marginalization is:
+%
+\begin{equation}
+f_X(x)=\int_{-\inf}^{\inf} f(x,y)\ dy
+\end{equation}
+%
+one can compute the marginal density in $R$.
+%
+\begin{equation}
+f_R(r)=\int^{2\pi}_0 f(r,\alpha) d\alpha =2\pi r
+\end{equation}
+%
+Note that for the second case we already know $f_R(r)$ since we consider that is has an uniform marginal density in $R$.
+
+Figures~\ref{fig:uniform_disp}(c) and (d) show the marginal density of in both cases $f^{\{uv,R\}}_R(r)$, when we have a uniform in uv or when it is in R.
+
+%\begin{figure}
+%\centering
+%\begin{tabular}{cc}
+%\includegraphics[width=6.0cm]{uniform_uv_hist.eps} &
+%\includegraphics[width=6.0cm]{uniform_R_hist.eps} 
+%\end{tabular}
+%\caption{On the left is the distribution of R when we have a uniform distribution in uv, on the right is the distribution of R when there is a uniform distribution in R.}
+%\label{fig:histogram}
+%\end{figure}

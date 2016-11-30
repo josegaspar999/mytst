@@ -1,0 +1,33 @@
+\begin{figure}
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=3cm]{face_case_35.eps} & 
+\multicolumn{2}{c}{ \includegraphics[width=5cm]{face_shuffle.eps} }\\
+(a) Test image & \multicolumn{2}{c}{(b) $4 \times 2$ shuffling } %\\
+\vspace{3mm} \\
+\includegraphics[width=3cm]{face_case_32.eps} & 
+\includegraphics[width=3cm]{face_case_34.eps} & 
+\includegraphics[width=3cm]{face_case_30.eps} \\
+(c) $4 \times 2$ shuffling &
+(d) $10 \times 10$ shuffling &
+(e) $100 \times 100$ shuffling %\\
+\vspace{3mm} \\
+\includegraphics[width=3cm]{topology_file_res02_case_32.EPS} & \includegraphics[width=3cm]{topology_file_res02_case_34.EPS} & \includegraphics[width=3cm]{topology_file_res02_case_30.EPS} \\
+(f) Reconstruction after & (g) Reconstruction after & (h) Reconstruction after \\
+ $4 \times 2$ shuffling &
+ $10 \times 10$ shuffling &
+ $100 \times 100$ shuffling %\\
+\vspace{3mm} \\
+\end{tabular}
+\caption{
+Topology estimation applied to the reconstruction of a shuffled $100 \times 100$ sensor.
+%Topology estimation applied to reordering a shuffled sensor.
+%Topology estimation applied to the reconstruction of an image.
+Test image before shuffling (a).
+The pixels of the sensor are shuffled in (i) $4 \times 2$ blocks, (ii) $10 \times 10$ blocks, or (iii) $100 \times 100$ (all) pixels, as illustrated on the test image, (b,c), (d) or (e), respectively.
+%The pixels of a test image (a) are shuffled in $4\times2$ blocks (b,c), $10\times\10$ blocks, or $100\times\100$ (all) pixels (d). 
+Each of the three shufflings is then subject to topology estimation, and the resulting topology applied to reconstruct the test image (f,g,h).
+%The estimated sensor topology, applied to each of the three cases, in then used to reconstruct the test image (e,f,g).
+}
+\label{fig:results2}
+\end{figure}

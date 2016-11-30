@@ -1,0 +1,136 @@
+\documentclass[letterpaper]{llncs}
+%\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage[margin=3cm]{geometry}
+\usepackage{array}
+%\usepackage{amsthm}
+\graphicspath{{./figs/setup/}{./figs/}{../1205_bmvc/images/}{../figs/}}
+
+
+\newtheorem {mydef}{Definition}
+\newtheorem {myprop}{Property}
+\newtheorem {myobs}{Observation}
+\newtheorem {myalg}{Algorithm}
+
+%\usepackage{float}
+%\floatstyle{ruled}
+%\newfloat{algorithm}{tbp}{loa}
+%\floatname{algorithm}{Algorithm}
+
+
+ \setlength{\topmargin}{-10mm}
+ \setlength{\textheight}{235mm}
+ %\setlength{\topmargin}{0mm}
+ \setlength{\headheight}{14pt}
+ \setlength{\headsep}{10mm}
+ \setlength{\textwidth}{150mm}
+ \setlength{\footskip}{13mm}
+ \setlength{\oddsidemargin}{5mm}
+ \setlength{\evensidemargin}{5mm}
+
+
+
+%\title{Lens Classification for Discrete Cameras}
+\title{Lens Auto-Classification using a Featureless Methodology}
+
+%
+\titlerunning{Lens Classification}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{R. Galego\inst{1} \and R. Ferreira\inst{1} \and A. Bernardino\inst{1} \and E. Grossmann\inst{2} \and J. Gaspar\inst{1}
+}
+%
+\authorrunning{R. Galego et al.} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\tocauthor{R. Galego, R. Ferreira, A. Bernardino, E. Grossmann and J. Gaspar}
+%
+\institute{Institute for Systems and Robotics, IST/UTL, Portugal\\
+\email{\{rgalego,ricardo,alex,jag\}@isr.ist.utl.pt}, \\ 
+%WWW home page:\texttt{http://www.isr.ist.utl.pt}
+\and
+Intel Corp., Menlo Park, USA\\
+\email{etienne@egdn.net} \\ 
+}
+
+
+% auxiliary commands
+%
+\newcommand{\R}[1] {\mathbb{R}^{#1}}
+\newcommand{\Sphere}[1] {\mathbb{S}^{#1}}
+\newcommand{\SO}[1] {\mathbb{SO}({#1})}
+
+\newcommand{\Prob}[1] {\mathbb{P}\left[ #1 \right]}
+\newcommand{\EV}[1] {\mathbb{E}\left[ #1 \right]}
+\newcommand{\EVs}[1] {\mathbb{E}^2\left[ #1 \right]}
+
+\newcommand{\p}[1] {\mathbf{#1}}
+\def\pp {\p{p}}
+\def\pq {\p{q}}
+\def\acos {\operatorname{acos}}
+\def\asin {\operatorname{asin}}
+\def\Area {\operatorname{Area}}
+
+\def\etal{\emph{et al. }}
+
+
+
+\newcommand{\TODO}[1] {\textbf{*** #1  ***} }
+
+
+%------------------------------------------------------------------------- 
+% Document starts here
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{sec0_abstract}
+\end{abstract}
+
+%------------------------------------------------------------------------- 
+\input{sec1_intro}
+\input{sec1}
+
+\input{sec3_calibr}
+
+\input{sec3_mirror}
+
+
+%\input{sec1_intro}
+%\input{sec1_related}
+%\input{sec2_calibr}
+%\input{sec3_corr}
+\input{sec4_exp}
+\input{sec4_exp_res4}
+\input{sec4_exp_mosaic}
+
+
+\input{sec2_marginal_pdf}
+\input{sec4_raxel}
+
+
+\input{sec5_results_lens_class}
+
+\input{sec5_concl}
+
+
+
+%\section*{Acknowledgments}
+%
+%%\noindent To be filled.
+%\noindent This work has been partially supported
+%by the FCT project PEst-OE / EEI / LA0009 / 2011,
+%by the FCT project PTDC / EEACRO / 105413 / 2008  DCCAL,
+%and
+%by the project High Definition Analytics (HDA), QREN - I\&D em Co-Promo\c{c}\~{a}o 13750.
+%%
+%We thank Jo\~{a}o Mendanha Dias, IST Lisbon, the help to build the microscopic input, and Ricardo Nunes, IST/ISR Lisbon, the help to build the setup based on a cable of optic fibers.
+
+\bibliographystyle{splncs03}
+\bibliography{secz}
+\end{document}
